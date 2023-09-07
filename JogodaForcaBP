@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+public class JogoDaForcaBP {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        String[] palavras = {"blackpink", "lisa", "shut down", "jennie", "pink venom", "rose", "jisoo", "born pink", "titas"};
+        String palavra = palavras[(int) (Math.random() * palavras.length)];
+        char[] palavraArray = palavra.toCharArray();
+        
+        int tentativas = 6;
+        char[] letrasCorretas = new char[palavra.length()];
+        boolean jogoAcabou = false;
+        
+        while (tentativas > 0 && !jogoAcabou) {
+            System.out.println("Tentativas restantes: " + tentativas);
+            
+            // Exibe a palavra com letras corretas adivinhadas
+            for (int i = 0; i < palavra.length(); i++) {
+                if (letrasCorretas[i] != '\0') {
+                    System.out.print(letrasCorretas[i] + " ");
+                } else {
+                    System.out.print("_ ");
+                }
+            }
+            System.out.println();
+            
+            System.out.print("Digite uma letra: ");
+            char letra = scanner.next().charAt(0);
+            
+            boolean letraCorreta = false;
+            
+            for (int i = 0; i < palavra.length(); i++) {
+                if (palavraArray[i] == letra) {
+                    letrasCorretas[i] = letra;
+                    letraCorreta = true;
+                }
+            }
+            
+            if (!letraCorreta) {
+                tentativas--;
+            }
+            
+            // Verifica se o jogador ganhou
+            jogoAcabou = true;
+            for (int i = 0; i < palavra.length(); i++) {
+                if (letrasCorretas[i] == '\0') {
+                    jogoAcabou = false;
+                    break;
+                }
+            }
+        }
+        
+        if (jogoAcabou) {
+            System.out.println("Lalisa ficaria orgulhosa, você ganhou! A palavra é: " + palavra);
+        } else {
+            System.out.println("A Jennie está rindo de você agora porque você perdeu! A palavra era: " + palavra);
+        }
+        
+        scanner.close();
+    }
+}
